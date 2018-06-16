@@ -36,8 +36,9 @@
 //4 buttons to represent 4 cryptos
 //The total score of the player
 
-var rippleArr = [1, 2, 3, 4],
-    eosArr = [5, 10, 20, 50],
+//Get the value of each crypto
+var rippleArr = [1, 3, 5, 7],
+    eosArr = [2, 4, 6, 8],
     etherArr = [100, 200, 300, 400],
     bitcoinArr = [1000, 2000, 3000, 4000];
 
@@ -46,9 +47,25 @@ var rippleVal = rippleArr[Math.floor(Math.random() * rippleArr.length)],
     etherVal = etherArr[Math.floor(Math.random() * etherArr.length)],
     bicoinVal = bitcoinArr[Math.floor(Math.random() * bitcoinArr.length)];
 
+//Update data-value
+$('#ripple').attr('data-value', rippleVal);
+$('#eos').attr('data-value', eosVal);
+$('#ether').attr('data-value', etherVal);
+$('#bitcoin').attr('data-value', bicoinVal);
+
+//to get the target value
+var randomNum;
+var targetVal = "";
+for (var i = 0; i < 4; i++) {
+  randomNum = [Math.ceil(Math.random() * 5)];
+  targetVal = targetVal + randomNum;
+}
+console.log('target', targetVal);
+
 function collect() {
-  alert($(this).text());
-  console.log(rippleVal);
+  var button = $(this);
+  console.log(button.attr('data-value'));
+
 }
 
 $(".crypto").on('click', collect);

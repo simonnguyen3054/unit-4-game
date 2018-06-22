@@ -1,0 +1,28 @@
+body {
+  background-image: url('../images/gradient_squares.png');
+  background-position: center;
+  height: 100vh;
+}
+
+img {
+  width: 30vh;
+  margin: 40px 40px;
+  cursor: pointer;
+  transition: all .07s ease;
+  display: inline-flex;
+}
+
+#ether {
+  width: 20vh;
+}
+
+#container {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  text-align: center;
+}
+
+.collect {
+  transform: scale(1.1);
+}

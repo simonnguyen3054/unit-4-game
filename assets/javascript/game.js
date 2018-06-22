@@ -1,38 +1,3 @@
-//There are four crypto
-//Add four buttons to html
-//Each button should have data attribute of value to store the value as it gets updated every game
-//Give button an id calls 'crypto'
-
-//Each crypto has four different value every game
-//Each crypto should have an array of 4 values rounded to the dollar
-// [1, 2, 3, 4]
-// [5, 10, 20, 50]
-// [100, 200, 300, 400]
-// [1000, 2000, 3000, 4000]
-//Randomly select any value from the array
-//store the sum of it to a variable
-//The key value should always be in the range of $1156 to $4454 (the sum of the smallest number to the sum of the largest number in the arrays)
-
-//There is one key value to match from the sum of the 4 crypto's value
-//Randomly select the number in each array first
-//Add them together
-//This is the key value
-
-//Coparing the key value to the total value every click
-//on button click, sum up the values and then compare it to the the key values
-
-//Update number of wins if match and lose if sum is higher than the key value
-//if the sum of values == to the key value then user winn
-//make the win variable global
-//update win++
-//if sum of values > key value than user lose
-//update lose++
-
-//HTML elements to be displayed
-//Key value board
-//status win/lose board
-//4 buttons to represent 4 cryptos
-//The total score of the player
 
 //Get the value of each crypto
 var rippleArr = [1, 3, 5, 7],
@@ -46,70 +11,90 @@ var targetVal = '';
 var totalCryptoVal = 0;
 var win = 0;
 var lose = 0;
-var statusSpan = $("<div>");
+var statusSpan = $("<h2>");
 
 //generate target value initially when game starts and display to the user
 for (var i = 0; i < 4; i++) {
   randomNum = [Math.ceil(Math.random() * 5)];
   targetVal = targetVal + randomNum;
-  $("#targetValue").text(targetVal);
+  $("#targetValue").text('$' + targetVal);
 }
+//Display Total Crypto Value
+$("#totalCrytoValue").text('$' + totalCryptoVal);
+
+//generate cryto value
+  rippleVal = rippleArr[Math.floor(Math.random() * rippleArr.length)];
+  eosVal = eosArr[Math.floor(Math.random() * eosArr.length)];
+  etherVal = etherArr[Math.floor(Math.random() * etherArr.length)];
+  bicoinVal = bitcoinArr[Math.floor(Math.random() * bitcoinArr.length)];
+//Update data-value
+  $("#ripple").attr("data-value", rippleVal);
+  $("#eos").attr("data-value", eosVal);
+  $("#ether").attr("data-value", etherVal);
+  $("#bitcoin").attr("data-value", bicoinVal);
+
 
 function resetGame() {
+  var newTargetVal = "";
+  totalCryptoVal = 0;
 
+  $("#totalCrytoValue").text('$' + totalCryptoVal);
 
-  //randomly pick a value
-  // rippleVal = rippleArr[Math.floor(Math.random() * rippleArr.length)];
-  // eosVal = eosArr[Math.floor(Math.random() * eosArr.length)];
-  // etherVal = etherArr[Math.floor(Math.random() * etherArr.length)];
-  // bicoinVal = bitcoinArr[Math.floor(Math.random() * bitcoinArr.length)];
+  for (var i = 0; i < 4; i++) {
+    randomNum = [Math.ceil(Math.random() * 5)];
+    newTargetVal = newTargetVal + randomNum;
+    targetVal = newTargetVal;
+    $("#targetValue").text('$' + targetVal);
+  }
 
-  //Update data-value
-  // $("#ripple").attr("data-value", rippleVal);
-  // $("#eos").attr("data-value", eosVal);
-  // $("#ether").attr("data-value", etherVal);
-  // $("#bitcoin").attr("data-value", bicoinVal);
+  //randomly pick a new value
+  var newRippleVal = rippleArr[Math.floor(Math.random() * rippleArr.length)];
+  rippleVal = newRippleVal;
+  var newEosVal = eosArr[Math.floor(Math.random() * eosArr.length)];
+  eosVal = newEosVal;
+  var newEtherVal = etherArr[Math.floor(Math.random() * etherArr.length)];
+  etherVal = newEtherVal;
+  var newBicoinVal = bitcoinArr[Math.floor(Math.random() * bitcoinArr.length)];
+  bicoinVal = newBicoinVal;
 
-  //generate target value
-  // for (var i = 0; i < 4; i++) {
-  //   randomNum = [Math.ceil(Math.random() * 5)];
-  //   targetVal = targetVal + randomNum;
-  // }
-
-  // //update the target value to the window
-
-  // $("#targetValue").text(targetVal);
+  // Update the new data-value
+  $("#ripple").attr("data-value", rippleVal);
+  $("#eos").attr("data-value", eosVal);
+  $("#ether").attr("data-value", etherVal);
+  $("#bitcoin").attr("data-value", bicoinVal);
 }
 
 function collect() {
-  var button = $(this);
-  var val = button.data("value");
-  //if targetVal == totalCrytoVal
-  //reset game
-  //else play game
 
-  if (targetVal == totalCryptoVal) {
+  var val = parseInt($(this).attr('data-value'));
+
+  $(this).attr('class', 'collect');
+  $(this).on('transitionend', function() {
+    $(this).removeClass('collect');
+  })
+
+  totalCryptoVal = totalCryptoVal + val;
+
+  //update the total cryto value to the window
+  $("#totalCrytoValue").text('$' + totalCryptoVal);
+
+  //you lose
+  if (totalCryptoVal > targetVal) {
+    statusSpan.text("You Lost!");
+    $("#status").prepend(statusSpan);
+    lose++;
+    $("#lose").text(lose);
     resetGame();
-  } else {
-    totalCryptoVal = totalCryptoVal + val;
+  }
 
-    //update the total cryto value to the window
-    $("#totalCrytoValue").text(totalCryptoVal);
-
-    //compare totalcryptovalue to targetvalue
-    if (totalCryptoVal == targetVal) {
-      statusSpan.text("You Won!");
-      $("#status").prepend(statusSpan);
-      win++;
-      $("#win").text(win);
-
-    } else if (totalCryptoVal > targetVal) {
-      statusSpan.text("You Lost!");
-      $("#status").prepend(statusSpan);
-      lose++;
-      $("#lose").text(lose);
-    }
+  //you win
+  if (totalCryptoVal == targetVal) {
+    statusSpan.text("You Won!");
+    $("#status").prepend(statusSpan);
+    win++;
+    $("#win").text(win);
+    resetGame();
   }
 }
 
-$(".crypto").on("click", collect);
+$(document).on('click', 'img', collect);

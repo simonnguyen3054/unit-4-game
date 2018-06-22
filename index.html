@@ -13,18 +13,20 @@
 
 <body>
   <div id="container">
-    <div id="targetValue"></div>
-    <div id="status">
-      <div>Win: <span id="win">0</span></div>
-      <div>Lose: <span id="lose">0</span></div>
+    <h2>Collect <span id="targetValue"></span> of Crypto!</h2>
+    <div class="cryptoImages">
+      <img id="bitcoin" src="./assets/images/bitcoin_image.png" data-value="1000" class="crypto"/>
+      <img id="ether" src="./assets/images/ether_image.png" data-value="100" class="crypto"/>
+      <img id="eos" src="./assets/images/eos_image.png" data-value="5" class="crypto"/>
+      <img id="ripple" src="./assets/images/ripple_image.png" data-value="1" class="crypto"/>
     </div>
-    <div>
-      <button id="ripple" type="button" data-value="1" class="crypto">ripple</button>
-      <button id="eos" type="button" data-value="5" class="crypto">eos</button>
-      <button id="ether" type="button" data-value="100" class="crypto">ether</button>
-      <button id="bitcoin" type="button" data-value="1000" class="crypto">bitcoin</button>
+    <div class="panel">
+        <h2 id="totalCrytoValue"></h2>
+        <div id="status">
+          <h2>Win: <span id="win">0</span></h2>
+          <h2>Lose: <span id="lose">0</span></h2>
+        </div>
     </div>
-    <div id="totalCrytoValue"></div>
   </div>
 
 

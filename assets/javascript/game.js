@@ -19,7 +19,7 @@ for (var i = 0; i < 4; i++) {
   targetVal = targetVal + randomNum;
   $("#targetValue").text('$' + targetVal);
 }
-//Display Total Crypto Value
+//Display Total Crypto Value user collects
 $("#totalCrytoValue").text('$' + totalCryptoVal);
 
 //generate cryto value
@@ -27,6 +27,7 @@ $("#totalCrytoValue").text('$' + totalCryptoVal);
   eosVal = eosArr[Math.floor(Math.random() * eosArr.length)];
   etherVal = etherArr[Math.floor(Math.random() * etherArr.length)];
   bicoinVal = bitcoinArr[Math.floor(Math.random() * bitcoinArr.length)];
+
 //Update data-value
   $("#ripple").attr("data-value", rippleVal);
   $("#eos").attr("data-value", eosVal);
@@ -66,12 +67,13 @@ function resetGame() {
 
 function collect() {
 
-  var val = parseInt($(this).attr('data-value'));
-
+  //CSS: Add transformation effect to the crypto on click
   $(this).attr('class', 'collect');
   $(this).on('transitionend', function() {
     $(this).removeClass('collect');
   })
+
+  var val = parseInt($(this).attr('data-value'));
 
   totalCryptoVal = totalCryptoVal + val;
 
